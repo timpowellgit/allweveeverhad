@@ -126,3 +126,5 @@ src/5_installation/twitter_thumbs/
 
 src/5_installation/web_dist/*.html
 serialized_data/
+pickle_toss/
+data/
