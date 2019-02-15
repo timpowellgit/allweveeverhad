@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script type="text/javascript" src="dropzone.js"></script>
+  <link rel="stylesheet" type="text/css" href="dropzone.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript">
+    var myDropzone = null;
+    $(function() {    
+      var myDropzone = new Dropzone("div#dz", {
+        url: "http://localhost:9999/",
+        paramName: "file",
+        uploadMultiple: true,
+        previewTemplate: document.querySelector('#template').innerHTML,
+        maxFilesize: 1000,
+        maxFiles: 1000,
+        parallelUploads: 1000
+      });
+    })
+  </script>
+</head>
+<body>
+  <div id="dz" class='dropzone-previews' style='border:1px solid black;height:400px;width:400px;display: table'>
+    <div style="display: table-cell; vertical-align: middle; text-align: center">
+      <div>
+        drag files here
+      </div>
+    </div>
+  </div>
+
+  <div id="template">
+    <div>
+      <span class="preview"><img data-dz-thumbnail /></span>
+      <p class="name" data-dz-name></p>
+      <strong class="error text-danger" data-dz-errormessage></strong>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+
+<form action="/" method="post" enctype="multipart/form-data">
+  <div>
+    nmb histogram bins:
+    <select name="nmb_histogram_bins">
+      <option value="8" selected>8</option>
+      <option value="16">16</option>
+      <option value="32">32</option>
+      <option value="64">64</option>
+      <option value="128">128</option>
+    </select>
+  </div>
+
+  <div>
+    Multiple files upload:
+    <input type="file" id="files" name="files[]" multiple />
+  </div>
+
+  <input type="submit" name="go">
+</form>
+
+</body>
+</html>

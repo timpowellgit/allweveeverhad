@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  </head>
+  <body style='padding-top: 2rem;padding-bottom: 2rem;'>
+    <div class="container">
+      <a href="/?max_distance_adpw_hash={{max_distance_adpw_hash}}&max_distance_histogram={{max_distance_histogram}}&nmb_histogram_bins={{nmb_histogram_bins}}&max_distance_tf={{max_distance_tf}}">process new image with same params</a>
+
+      <hr>
+
+      {% for hash_algo in ordered_hash_distance_res %}
+        {% if ordered_hash_distance_res[hash_algo].items() %}
+
+          <h1>
+            <a data-toggle="collapse" href="#collapse{{ hash_algo }}" aria-expanded="false" aria-controls="collapse{{ hash_algo }}">
+            {{ hash_algo }} ({{ ordered_hash_distance_res[hash_algo]|length }} results)
+            </a>
+          </h1>
+
+          <div class="collapse" id="collapse{{ hash_algo }}">
+            <div >
+
+              <table class="table">
+                <tbody>
+                  {% for img_src_id in ordered_hash_distance_res[hash_algo] %}
+                    <tr>
+                      <td style="width:33%">
+                      {% if img_src_id[0] == 'artsy' %}
+                        {# comment FIXME ARTSY PATH IS NOT ALWAYS LARGER.JPG!!!!!!!!!!!! #}
+                        <img src="http://67.205.150.194:48809/2fee9d62-66cf-4ae3-af4c-e3b2a1f1b32e/artsy/{{ img_src_id[1] }}" width="300">
+                      {% elif img_src_id[0] == 'met' %}
+                        <img src="http://67.205.150.194:48809/2fee9d62-66cf-4ae3-af4c-e3b2a1f1b32e/met/{{ img_src_id[1] }}" width="300">
+                      {% endif %}
+
+                      {# comment TODO add moma #}
+                      {# comment TODO add moma #}
+                      {# comment TODO add moma #}
+
+                      </td>
+
+                      <td style="width:33%">{{ img_src_id[0] }}</td>
+                      <td style="width:33%">
+                        <!--
+                          <div class="progress">
+                            <div class="progress-bar" role="progressbar"
+                              style="width:{% if hash_algo == "histogram" %}{{ ordered_hash_distance_res[hash_algo][img_src_id] * 100 }}{% elif not hash_algo.startswith('_') %}{{ ordered_hash_distance_res[hash_algo][img_src_id] / 64 * 100 }}{% endif %}%"></div>
+                          </div>
+                        -->
+                        {{ ordered_hash_distance_res[hash_algo][img_src_id] }}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+
+
+            </div>
+          </div>
+
+        {% endif %}
+      {% endfor %}
+
+      <hr>
+
+      <a href="/?max_distance_adpw_hash={{max_distance_adpw_hash}}&max_distance_histogram={{max_distance_histogram}}&nmb_histogram_bins={{nmb_histogram_bins}}&max_distance_tf={{max_distance_tf}}">process new image with same params</a>
+    </div> 
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  </body>
+</html>

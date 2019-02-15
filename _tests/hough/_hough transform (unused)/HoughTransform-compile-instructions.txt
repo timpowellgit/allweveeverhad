@@ -1,0 +1,3 @@
+cd /Users/greg/Desktop/ART-freeriots/adam-basanta-all-weve-ever-had-is-one-another/repo/_tests/hough/HoughTransform-master/src
+
+gcc -o fasthough -I/usr/local/Cellar/imagemagick@6/6.9.9-40/include/ImageMagick-6 -L/usr/local/lib -lMagickWand hough_transform.c hough.c

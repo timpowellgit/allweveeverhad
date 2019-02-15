@@ -1,0 +1,57 @@
+  File "run_light_routine.py", line 15, in <module>
+    lctr.full_routine_iteration()
+  File "c:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 260, in full_routine_iteration
+    rout()
+  File "c:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 211, in ramp_routine
+    getattr(self,"_ramp_shape_%d" % (rampshape,))(d)
+  File "c:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 189, in _ramp_shape_3
+    self._ramp_shape_2(dur*0.5)
+  File "c:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 181, in _ramp_shape_2
+    self.send_val(LIGHT_DMX_CHAN,255)
+  File "c:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 96, in send_val
+    self.render()
+  File "c:\Users\Computer As Artist 2\Documents\adam-dmx-controller\DmxPy\DmxPy.py", line 35, in render
+    self.serial.write(DMXOPEN+DMXINTENSITY+sdata+DMXCLOSE)
+  File "C:\Python27\lib\site-packages\serial\serialwin32.py", line 323, in write
+    raise writeTimeoutError
+serial.serialutil.SerialTimeoutException: Write timeout
+
+------
+c:\Users\Computer As Artist 2\Documents\adam-dmx-controller>py -2 run_light_routine.py
+Traceback (most recent call last):
+  File "run_light_routine.py", line 15, in <module>
+    lctr.full_routine_iteration()
+  File "c:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 260, in full_routine_iteration
+    rout()
+  File "c:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 211, in ramp_routine
+    getattr(self,"_ramp_shape_%d" % (rampshape,))(d)
+  File "c:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 182, in _ramp_shape_2
+    self.ramp(LIGHT_DMX_CHAN,0,dur,res=RAMP_RES)
+  File "c:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 117, in ramp
+    self.send_val(chan,old_val)
+  File "c:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 96, in send_val
+    self.render()
+  File "c:\Users\Computer As Artist 2\Documents\adam-dmx-controller\DmxPy\DmxPy.py", line 35, in render
+    self.serial.write(DMXOPEN+DMXINTENSITY+sdata+DMXCLOSE)
+  File "C:\Python27\lib\site-packages\serial\serialwin32.py", line 323, in write
+    raise writeTimeoutError
+serial.serialutil.SerialTimeoutException: Write timeout
+===
+Traceback (most recent call last):
+  File "run_light_routine.py", line 15, in <module>
+    lctr.full_routine_iteration()
+  File "C:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 260, in full_routine_iteration
+    rout()
+  File "C:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 162, in flash_routine
+    self.pulse(LIGHT_DMX_CHAN,v,d)
+  File "C:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 136, in pulse
+    self.ramp(chan,old_val,ramp,ramp_res)
+  File "C:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 117, in ramp
+    self.send_val(chan,old_val)
+  File "C:\Users\Computer As Artist 2\Documents\adam-dmx-controller\light_control.py", line 96, in send_val
+    self.render()
+  File "C:\Users\Computer As Artist 2\Documents\adam-dmx-controller\DmxPy\DmxPy.py", line 35, in render
+    self.serial.write(DMXOPEN+DMXINTENSITY+sdata+DMXCLOSE)
+  File "C:\Python27\lib\site-packages\serial\serialwin32.py", line 323, in write
+    raise writeTimeoutError
+serial.serialutil.SerialTimeoutException: Write timeout

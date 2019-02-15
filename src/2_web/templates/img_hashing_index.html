@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  </head>
+  <body style='padding-top: 2rem;padding-bottom: 2rem;'>
+    <div class="container">
+
+      <form action="/imgdiff" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="max_distance_adpw_hash">a-, d-, p-, and w- hash cutoff (even numbers between 0 - 64)</label>
+          <input type="number" class="form-control" id="max_distance_adpw_hash" name="max_distance_adpw_hash" required value="{% if max_distance_adpw_hash %}{{ max_distance_adpw_hash }}{% else %}4{% endif %}">
+        </div>
+
+        <div class="form-group">
+          <label for="max_distance_histogram">histogram distance cutoff (roughly 0.0 - 20.0)</label>
+          <input type="number" class="form-control" id="max_distance_histogram" name="max_distance_histogram" required value="{% if max_distance_histogram %}{{ max_distance_histogram }}{% else %}0.06{% endif %}">
+        </div>
+
+        <div class="form-group">
+          <label for="nmb_histogram_bins">number of histogram bins (pick one from 8, 16, 32, 64, 128)</label>
+          <select name="nmb_histogram_bins" class="form-control" id="nmb_histogram_bins">
+            <option value="8" {% if nmb_histogram_bins == "8" %}selected{% endif %}>8</option>
+            <option value="16"{% if nmb_histogram_bins == "16" %}selected{% endif %}>16</option>
+            <option value="32"{% if nmb_histogram_bins == "32" %}selected{% endif %}>32</option>
+            <option value="64"{% if nmb_histogram_bins == "64" %}selected{% endif %}>64</option>
+            <option value="128"{% if nmb_histogram_bins == "128" %}selected{% endif %}>128</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="max_distance_tf">tensorflow distance cutoff (0.0 - 45.3)</label>
+          <input type="number" class="form-control" id="max_distance_tf" name="max_distance_tf" required value="{% if max_distance_tf %}{{ max_distance_tf }}{% else %}20{% endif %}">
+        </div>
+
+        <div class="form-group">
+          <label for="max_distance_image_ratio">image width to height ratio cutoff (0.0 to 1.0)</label>
+          <input type="number" class="form-control" id="max_distance_image_ratio" name="max_distance_image_ratio" required value="{% if max_distance_image_ratio %}{{ max_distance_image_ratio }}{% else %}0.3{% endif %}">
+        </div>
+
+        <div class="form-group">
+          <label for="max_distance_multi_hist">multi hist cutoff (roughly 0.0 - 21.0)</label>
+          <input type="number" class="form-control" id="max_distance_multi_hist" name="max_distance_multi_hist" required value="{% if max_distance_multi_hist %}{{ max_distance_multi_hist }}{% else %}0.3{% endif %}">
+        </div>
+
+        <div class="form-group">
+          <label for="max_distance_lines_angle">lines angle cutoff (roughly 0.0 - 3.15)</label>
+          <input type="number" class="form-control" id="max_distance_lines_angle" name="max_distance_lines_angle" required value="{% if max_distance_lines_angle %}{{ max_distance_lines_angle }}{% else %}0.3{% endif %}">
+        </div>
+
+        <div class="form-group">
+          <label for="max_distance_lines_vert_dist">lines vert dist cutoff (roughly 0.0 - 3.15)</label>
+          <input type="number" class="form-control" id="max_distance_lines_vert_dist" name="max_distance_lines_vert_dist" required value="{% if max_distance_lines_vert_dist %}{{ max_distance_lines_vert_dist }}{% else %}0.3{% endif %}">
+        </div>
+
+        <div class="form-group">
+          <label for="max_distance_lines_horiz_dist">lines horiz dist cutoff (roughly 0.0 - 3.15)</label>
+          <input type="number" class="form-control" id="max_distance_lines_horiz_dist" name="max_distance_lines_horiz_dist" required value="{% if max_distance_lines_horiz_dist %}{{ max_distance_lines_horiz_dist }}{% else %}0.3{% endif %}">
+        </div>
+
+        <div class="form-group">
+          <label for="image_upload">image upload</label>
+          <input type="file" name="file" class="form-control" id="image_upload" required onchange="document.getElementById('status').style.display='block';this.form.submit()"/><br/>
+        </div>
+      </form>
+
+      <div id="status" style="display:none">
+        Processing ... <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Ajax-loader.gif"/>
+      </div>
+    </div> 
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  </body>
+</html>

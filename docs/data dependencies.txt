@@ -1,0 +1,11 @@
+dependencies:
+
+artsy
+run artsy2 insert into db
+then run artsy3 to serialize hashes into pandas -- which will use row id from Image table as pandas dataframe index
+
+met
+TODO
+
+moma
+TODO

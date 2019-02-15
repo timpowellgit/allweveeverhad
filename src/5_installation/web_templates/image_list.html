@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block headers_extra %}
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+      var $grid = $('.grid').isotope({
+        layoutMode: 'fitRows',
+        itemSelector: '.grid-item',
+        transitionDuration: 0
+      });
+
+      // layout Isotope after each image loads
+      $grid.imagesLoaded().progress( function() {
+        $grid.isotope('layout');
+      });
+    });
+
+    {% if keep_reloading %}
+      // reload in 10 minutes
+      // this will be baked into the page, so it will keep reloading.
+      // this is only used for the installation pc
+      // if you're reading this, hi!
+      setTimeout(function() {
+        window.location.reload(true);
+      }, 1000 * 60 * 10); // 10 mins
+    {% endif %}
+  </script>
+{% endblock %}
+
+{% block content %}
+  <article class='fr w-100 w-80-ns' id='images'>
+    <div class="grid">
+      {% for image in images %}
+        <div class="i grid-item grid-item--{{ image.thumb_img_orientation }}">
+          <a href="full/{{ image.full_img_file_name }}" data-lightbox="image-{{ loop.index }}" data-title='{{ image.match_score|replace("'"," ") }}%_match: {{ image.artist|replace("'"," ") }} "{{ image.title|replace("'"," ") }}", {{ image.year|replace("'"," ") }}'>
+            <img data-src="img/{{ image.thumb_img_file_name }}"/>
+          </a>
+          <br/>
+          {{ image.match_score }}%_match: {{ image.artist }} "{{ image.title }}", {{ image.year }}
+        </div>
+      {% endfor %}
+    </div>
+  </article>
+{% endblock %}
+
+{% block body_end_extra %}
+  <script type="text/javascript">
+    new LazyLoad();
+  </script>
+{% endblock %}

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <style>
+    table.sticky {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      padding: 50px;
+      font-size: 20px;
+    }
+    </style>
+    <script type="text/javascript">
+      var kSrcImgs = {{ files_base64_encoded|safe }};
+    </script>
+    <script type="text/javascript">
+      window.addEventListener("load", function() {
+          var busy = false;
+          var open = false;
+          var lastData = null;
+          var initialSent = false;
+
+          var socket = new WebSocket("ws://localhost:9000");
+
+          socket.onopen = function() {
+            console.log('onopen');
+            open = true;
+            initialSent = true;
+            socket.send('initial');
+          }
+
+
+          socket.onmessage = function(message){
+            data = JSON.parse(message.data);
+            console.log(data)
+
+            for (const [key, value] of Object.entries(data.weights)) {
+              document.getElementById(key).value= value;
+            }
+            document.getElementById('transfer_info').innerHTML = 'transfer_info: ' + JSON.stringify(data.transfer_info);
+            document.getElementById('input_t_v').value = data.transfer_value;
+            document.getElementById('input_g_i').value = data.global_input_max;
+            document.getElementById('input_g_o').value = data.global_output_max;
+            document.getElementById('input_items').value = data.max_items;
+            document.getElementById('source_names_freq').innerHTML = 'source_names_freq: ' + data.source_names_freq;
+
+            document.getElementById('table').innerHTML = '';
+            var tableEl = document.createElement('table');
+            tableEl.className = 'table';
+            tableEl.classList.add('sticky');
+            
+            var tr = document.createElement('tr');
+            for(var srcImgIdx = 0; srcImgIdx < kSrcImgs.length; srcImgIdx++) {
+              el = createTdFromImgSrcAndLabel('data:image/gif;base64,'+ kSrcImgs[srcImgIdx]);
+              tr.appendChild(el);
+            }
+            tableEl.appendChild(tr);
+
+            
+            // build table row by row, across image results
+            var tableElResults = document.createElement('table');
+            tableElResults.className = 'table';
+            var nmbResults = data.imgs[0].results.length;
+            for(var resultIdx = 0; resultIdx < nmbResults; resultIdx++) {
+              tr = document.createElement('tr');
+
+              for(var srcImgIdx = 0; srcImgIdx < data.imgs.length; srcImgIdx++) {
+                el = createTdFromImgSrcAndLabel(
+                  data.imgs[srcImgIdx].results[resultIdx],
+                  data.imgs[srcImgIdx].scores[resultIdx],
+                  data.imgs[srcImgIdx].artwork_info[resultIdx] + '\n' + 
+                  JSON.stringify(data.imgs[srcImgIdx].winning_image_indices_algo_results[resultIdx])
+                );
+                tr.appendChild(el);
+              }
+              
+              tableElResults.appendChild(tr);
+            }
+            document.getElementById('table').appendChild(tableEl);
+            document.getElementById('table').appendChild(tableElResults);
+
+            busy = false;
+          };
+
+          function createTdFromImgSrcAndLabel(src, label, artInfo) {
+            var el = document.createElement('td');
+
+            var img = document.createElement('img');
+            img.src = src;
+            img.style = 'width:200px;display:block;margin-bottom:10px;'
+            img.title = artInfo;
+            el.appendChild(img);
+
+            // ALTERNATIVE no images, just the hyperlinked title
+            // var span = document.createElement('span');
+            // span.innerHTML = '<a href="'+ src +'">'+ artInfo + '</a>';
+            // el.appendChild(span);
+
+            if(label !== null && typeof label !== 'undefined') {
+              var div = document.createElement('div');
+              div.innerHTML = parseFloat(label);
+              el.appendChild(div);
+            }
+
+            return el;
+          } 
+          function createWeightDict() {
+            var weightslabels = document.getElementById("weights").children;
+            var weightDict = {};
+            for (const weight of weightslabels) {
+                weightDict[weight.children[0].id]=weight.children[0].value;
+            }
+            return weightDict
+          }
+          var form = document.getElementsByClassName("values");
+          var input_t_v = document.getElementById("input_t_v");
+          var input_g_i = document.getElementById("input_g_i");
+          var input_g_o = document.getElementById("input_g_o");
+          var input_items = document.getElementById("input_items");
+          form[0].addEventListener("submit", function (e) {
+              // on forms submission send input to our server
+              // for (const weight of weightslabels) {
+              //   console.log(weight.children[0].id)
+              //   console.log(weight.children[0].value)
+              //   dict[weight.children[0].id]=weight.children[0].value
+              // }
+              allWeights = createWeightDict();
+              calibration = JSON.stringify({
+                calibration: {
+                t_v: input_t_v.value,
+                g_i: input_g_i.value,
+                g_o: input_g_o.value,
+                weights: allWeights,
+                max_items: input_items.value
+              }});
+
+              socket.send(calibration);
+              e.preventDefault()
+          });
+          var reset = document.getElementById('reset');
+          reset.addEventListener("click", function (e) {
+            socket.send('reset')
+            e.preventDefault()
+          });
+      }); 
+    </script>
+
+  </head>
+  <body style='padding-top: 2rem;padding-bottom: 2rem;'>
+    <form class="values">
+      <div id="weights">
+        <label>tensorflow:<input id="tf" type="number" step="any" max="20"></input></label>
+        <label>ahash:<input id="ahash" type="number" step="any" max="20"></input></label>
+        <label>dhash:<input id="dhash" type="number" step="any" max="20"></input></label>
+        <label>phash:<input id="phash" type="number" step="any" max="20"></input></label>
+        <label>whash:<input id="whash" type="number" step="any" max="20"></input></label>
+        <label>hist:<input id="hist" type="number" step="any" max="20"></input></label>
+        <label>hist_ahash:<input id="hist_ahash" type="number" step="any" max="20"></input></label>
+        <label>hist_dhash:<input id="hist_dhash" type="number" step="any" max="20"></input></label>
+        <label>hist_phash:<input id="hist_phash" type="number" step="any" max="20"></input></label>
+        <label>hist_whash:<input id="hist_whash" type="number" step="any" max="20"></input></label>
+        <label>image_ratio:<input id="image_ratio" type="number" step="any" max="20"></input></label>
+        <label>multi_hist:<input id="multi_hist" type="number" step="any" max="20"></input></label>
+        <label>lines_angle:<input id="lines_angle_hist" type="number" step="any" max="20"></input></label>
+        <label>lines_vert:<input id="lines_vert_dist_hist" type="number" step="any" max="20"></input></label>
+        <label>lines_horiz:<input id="lines_horiz_dist_hist" type="number" step="any" max="20"></input></label>
+      </div>
+      <div id="transfer_info"></div>
+      <label>Transfer value: <input id="input_t_v" type="number" step="any" max="10"></input></label>
+      <label>Global input max:<input id="input_g_i" type="number" step="any" max="100"></input></label>
+      <label>Global output max: <input id="input_g_o" type="number" step="any" max="3"></input></label>
+      <label>Max items to send back: <input id="input_items" type="number" step="any" max="1000"></input></label>
+
+      <input type="submit"></input>
+    </form>
+    <div>      
+      <button id="reset">Reset values</button>
+    </div>
+
+      <div id="source_names_freq"></div>
+      <div id="table"></div>
+  </body>
+</html>

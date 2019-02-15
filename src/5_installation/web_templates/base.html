@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>All we'd ever need is one another - Adam Basanta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
+
+    <script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+    <script src='//npmcdn.com/isotope-layout@3/dist/isotope.pkgd.js'></script>
+    <script src='//npmcdn.com/imagesloaded@4/imagesloaded.pkgd.js'></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.5.2/lazyload.min.js"></script>
+    
+    <style type="text/css">
+      * {
+        font-family: helvetica, sans-serif;
+      }
+
+      .grid {
+      }
+
+      /* clear fix */
+      .grid:after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+      .grid-item {
+        float: left;
+        height: 300px;
+        margin: 10px;
+      }
+      .grid-item--p {
+        width: 130px;
+        max-width: 130px;
+      }
+      .grid-item--l {
+        width: 247px;
+        max-width: 247px;
+      }
+    </style>
+    <script type="text/javascript">
+      function toggleDates() {
+        var alldates = document.getElementById('alldates');
+        alldates.style.display = (alldates.style.display == 'none') ? 'block' : 'none';
+      }
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.10.0/css/lightbox.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.10.0/js/lightbox.min.js"></script>
+
+    {% block headers_extra %}{% endblock %}
+  </head>
+  <body class="w-100 sans-serif bg-white">
+    <header class="bg-white sans-serif">
+      <div class="mw9 pa4 pt5-ns">
+        <h3 class="f2 f2-m measure-narrow lh-title mv0">
+          <span class="lh-copy black tracked-tight">
+            <a href="/" class="black no-underline">All we'd ever need is one another</a>
+          </span>
+        </h3>
+        <h5 class="f6 ttu tracked black-80">
+          <a href="http://adambasanta.com/" target="_blank" class="black no-underline">Adam Basanta</a>
+        </h5>
+      </div>
+    </header>
+
+    <div>  
+      <div class='fl w-100 w-20-ns'>
+        <div class="pa4 lh-copy">
+          <a class="f6 fw6 db black link outline-0 hover-blue" href="/">most recent</a>
+          <a class="f6 fw6 db black link outline-0 hover-light-purple" onclick="toggleDates()" href="javascript:;">by date</a>
+          <div id='alldates' class='ml2' style='display:{% if showdates %}block{% else %}none{% endif %}'>
+            {% for date in dates_links %}
+              <a class="f6 fw6 db black link outline-0 hover-{{ date.link_color }}" href="{{ date.date }}.html">{{ date.date_english }}</a>
+            {% endfor %}
+          </div>
+          <a class="f6 fw6 db black link outline-0 hover-blue" href="bestmatches.html">best matches</a>
+          <a class="f6 fw6 db black link outline-0 hover-dark-pink" href="about.html">about</a>
+          
+          <a class="f6 fw6 db black link outline-0 hover-hot-pink mt3" href="https://twitter.com/AllWedEverNeed" target='_blank'>twitter</a>
+          <a class="f6 fw6 db black link outline-0 hover-light-green" href="https://www.instagram.com/all_wed_ever_need/" target='_blank'>instagram</a>
+        </div>
+      </div>
+
+      {% block content %}{% endblock %}
+
+    </div>
+
+    {% block body_end_extra %}{% endblock %}
+  </body>
+</html>
