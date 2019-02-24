@@ -12,7 +12,7 @@ from annoy import AnnoyIndex
 DEBUG = 'true'#os.environ['HASH_PROXIM_SERVER_DEBUG'] == 'true'
 
 DEBUG_RUN_TF_ALGO = False
-DEBUG_RUN_HIST_ALGO = True
+DEBUG_RUN_HIST_ALGO = False
 DEBUG_RUN_MULTI_HIST_ALGO = False
 DEBUG_RUN_LINES_ALGO = False
 DEBUG_RUN_HASHING_ALGOS = False
@@ -29,11 +29,11 @@ PORT = 9999 #int(os.environ['HASH_PROXIM_SERVER_FLASK_PORT'])
 
 # --------
 
-REALTIME_PICKLE_DIFF_PATH_OUT = '/Users/timothypowell/allweveeverhad-master/pickle_toss/last_diff_results_for_realtime.pickle'#os.environ['REALTIME_PICKLE_DIFF_PATH_OUT']
+REALTIME_PICKLE_DIFF_PATH_OUT = os.environ['REALTIME_PICKLE_DIFF_PATH_OUT']
 
 # --------
 
-ANNOY_FILES_BASE_DIR = '/Users/timothypowell/allweveeverhad-master/serialized_data/newer_even_still_annoy_files_allpainters_moma_jf_guido_allpainters_email' #os.environ['ANNOY_FILES_BASE_DIR']
+ANNOY_FILES_BASE_DIR = os.environ['ANNOY_FILES_BASE_DIR']
 
 # using MAX_NNS for max number of returned rows by annoy is dirty hack:
 # no way to tell annoy to return distance to all vectors

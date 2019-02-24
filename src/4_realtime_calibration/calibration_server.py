@@ -31,11 +31,11 @@ IMG_BLACKLIST = [800175, 435716, 81573, 762831, 177194, 499334, 730007, 700771, 
 
 # ---
 
-DIFF_PICKLE_FILES_DIR_PATH = '/Users/timothypowell/allweveeverhad-master/pickle_toss/realtime-multi-pickles'
-LAST_WEIGHTS = '/Users/timothypowell/allweveeverhad-master/pickle_toss/last_weights'
+DIFF_PICKLE_FILES_DIR_PATH = os.environ['DIFF_PICKLE_FILES_DIR_PATH']
+LAST_WEIGHTS = os.environ['LAST_WEIGHTS']
 #DIFF_PICKLE_FILES_DIR_PATH = '/Users/greg/Desktop/ART-freeriots/adam-basanta-all-weve-ever-had-is-one-another/repo/src/1_ingest_data/serialized_data/realtime-multi-pickles'
 # DIFF_PICKLE_FILES_DIR_PATH = '/Volumes/Phatty/ART-freeriots-to-make-more-room-on-tw/realtime-multi-pickles post tf join backup final weights apr 16 BKP'
-ARTWORKS_SQLITE_PATH = '/Users/timothypowell/allweveeverhad-master/serialized_data/artworks.sqlite3'
+ARTWORKS_SQLITE_PATH = os.environ['ARTWORKS_SQLITE_PATH']
 
 # ---
 
@@ -148,7 +148,25 @@ def image_obj_to_url(img_obj):
   elif source_name == 'adam_email_apr18':
     key = '/'.join(img_obj.img_local_path.split('/')[-1:])
     url = URL_PREFIX + 'adam_email_apr18/{}'.format(key)
-
+  elif source_name == 'tate':
+    key = '/'.join(img_obj.img_local_path.split('/')[-1:])
+    url = URL_PREFIX + 'tate/{}'.format(key)
+  elif source_name == 'rijksmuseum':
+    key = '/'.join(img_obj.img_local_path.split('/')[-1:])
+    url = URL_PREFIX + 'rijksmuseum/{}'.format(key)
+  elif source_name == 'pompidou':
+    key = '/'.join(img_obj.img_local_path.split('/')[-1:])
+    url = URL_PREFIX + 'pompidou/{}'.format(key)
+  elif source_name == 'museoreinasofia':
+    key = '/'.join(img_obj.img_local_path.split('/')[-1:])
+    url = URL_PREFIX + 'museoreinasofia/{}'.format(key) 
+  elif source_name == 'imagesdart':
+    key = '/'.join(img_obj.img_local_path.split('/')[-1:])
+    url = URL_PREFIX + 'imagesdart/{}'.format(key)
+  elif source_name == 'guggenheim':
+    key = '/'.join(img_obj.img_local_path.split('/')[-1:])
+    url = URL_PREFIX + 'guggenheim/{}'.format(key) 
+  
   return url
 
 def image_id_artwork_info(img_id):
@@ -358,6 +376,7 @@ class MyServerProtocol(WebSocketServerProtocol):
       # stringify matches (too long of a float will mess with table/td width output)
       percentage_match_scores = map(lambda _: '%.9f'%_, percentage_match_scores)
       image_db_objects = filter(None,map(Image.get_by_id_safe, weighted_ids[:MAX_ITEMS_TO_SEND_BACK].index))
+
       all_img_source_names = map(lambda obj: obj.artwork_id.source_name, image_db_objects)
 
       per_img_data = {

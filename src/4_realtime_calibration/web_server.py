@@ -22,8 +22,8 @@ app = Flask(__name__)
 
 IMAGE_HASHING_WEB_SERVER = 'http://localhost:9999/'
 
-REALTIME_DIFF_PICKLE_PATH = '/Users/timothypowell/allweveeverhad-master/pickle_toss/last_diff_results_for_realtime.pickle'#'/Users/greg/Desktop/ART-freeriots/adam-basanta-all-weve-ever-had-is-one-another/repo/src/1_ingest_data/serialized_data/last_diff_results_for_realtime.pickle'
-REALTIME_DIFF_PICKLE_DEST_DIR = '/Users/timothypowell/allweveeverhad-master/pickle_toss/realtime-multi-pickles'#'/Users/greg/Desktop/ART-freeriots/adam-basanta-all-weve-ever-had-is-one-another/repo/src/1_ingest_data/serialized_data/realtime-multi-pickles'
+REALTIME_DIFF_PICKLE_PATH = os.environ['REALTIME_DIFF_PICKLE_PATH']
+REALTIME_DIFF_PICKLE_DEST_DIR = os.environ['REALTIME_DIFF_PICKLE_DEST_DIR']
 
 # TODO 10 upload form GET page
 # will need to pick

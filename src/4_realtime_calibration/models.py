@@ -17,8 +17,8 @@ class Artwork(Model):
   # --- artwork info ---
   title = CharField()
   artist = CharField()
-  year = IntegerField(null=True)
-
+  #year = IntegerField(null=True)
+  year= CharField()
   # --- meta &c. ---
   # any non-"primary" (e.g., something other than the title/artist) data;
   # anything that's source-specific as well.

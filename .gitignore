@@ -128,3 +128,4 @@ src/5_installation/web_dist/*.html
 serialized_data/
 pickle_toss/
 data/
+*.sqlite3
