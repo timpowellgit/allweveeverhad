@@ -1,0 +1,8 @@
+export DIFF_PICKLE_FILES_DIR_PATH=/Users/timothypowell/allweveeverhad-master/pickle_toss/realtime-multi-pickles
+export LAST_WEIGHTS=/Users/timothypowell/allweveeverhad-master/pickle_toss/last_weights
+export ARTWORKS_SQLITE_PATH=/Users/timothypowell/allweveeverhad-master/serialized_data/artworks_new_ingest.sqlite3
+export REALTIME_PICKLE_DIFF_PATH_OUT=/Users/timothypowell/allweveeverhad-master/pickle_toss/last_diff_results_for_realtime.pickle
+export ANNOY_FILES_BASE_DIR=/Users/timothypowell/allweveeverhad-master/serialized_data/combined_annoy
+export REALTIME_DIFF_PICKLE_PATH=/Users/timothypowell/allweveeverhad-master/pickle_toss/last_diff_results_for_realtime.pickle
+export REALTIME_DIFF_PICKLE_DEST_DIR=/Users/timothypowell/allweveeverhad-master/pickle_toss/realtime-multi-pickles
+export TENSORFLOW_GRAPH_PATH=/Users/timothypowell/allweveeverhad-master/serialized_data/combined_annoy/tensorflow_inception_classify_image_graph_def.pb
