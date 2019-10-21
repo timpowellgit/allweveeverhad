@@ -84,7 +84,7 @@ txaio==2.9.0
 urllib3==1.22
 uWSGI==2.0.16
 wcwidth==0.1.7
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 zope.interface==4.4.3
 tweepy==3.6.0
 
