@@ -30,7 +30,7 @@ incremental==17.5.0
 ipython==5.5.0
 ipython-genutils==0.2.0
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2==2.11.3
 kiwisolver==1.0.1
 line-profiler==2.1.2
 locket==0.2.0
