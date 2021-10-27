@@ -15,7 +15,7 @@ cloudpickle==0.5.2
 constantly==15.1.0
 cycler==0.10.0
 Cython==0.27.3
-dask==0.17.1
+dask==2021.10.0
 decorator==4.2.1
 enum34==1.1.6
 Flask==0.12.2
