@@ -44,7 +44,7 @@ mock==2.0.0
 networkx==2.1
 nose==1.3.7
 numexpr==2.6.4
-numpy==1.14.2
+numpy==1.22.0
 pandas==0.22.0
 partd==0.3.8
 pathlib2==2.3.0
