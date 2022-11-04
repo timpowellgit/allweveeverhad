@@ -79,7 +79,7 @@ tensorflow-tensorboard==1.5.1
 toolz==0.9.0
 tqdm==4.19.5
 traitlets==4.3.2
-Twisted==17.9.0
+Twisted==22.10.0
 txaio==2.9.0
 urllib3==1.22
 uWSGI==2.0.16
